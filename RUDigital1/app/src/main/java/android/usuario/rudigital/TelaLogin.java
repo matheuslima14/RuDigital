@@ -43,6 +43,7 @@ public class TelaLogin extends AppCompatActivity {
             public void onClick(View view) {
                 Intent abreCadastro = new Intent(TelaLogin.this, TelaCadastro.class);
                 startActivity(abreCadastro);
+
             }
         });
 
@@ -75,15 +76,6 @@ public class TelaLogin extends AppCompatActivity {
 
             }
         });
-
-        /*this.btnLogar.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent irTelaMenu = new Intent(TelaLogin.this, TelaMenu.class);
-                TelaLogin.this.startActivity(irTelaMenu);
-                TelaLogin.this.finish();
-            }
-        });*/
 
     }
     private class SolicitaDados extends AsyncTask<String, Void, String> {
