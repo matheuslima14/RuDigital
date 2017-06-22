@@ -8,7 +8,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
 public class Conexao {
 public static String postDados(String urlUsuario, String parametrosUsuario) {
     URL url;
@@ -67,4 +66,3 @@ public static String postDados(String urlUsuario, String parametrosUsuario) {
 
 }
 }
-

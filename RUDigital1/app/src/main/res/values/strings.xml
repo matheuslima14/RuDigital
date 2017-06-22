@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">RUDigital</string>
+    <string name="app_name">R.U. Digital</string>
+    <string name="menuInicial">Menu Inicial</string>
+    <string name="votarCardapio">Votar Cardápio</string>
+    <string name="avisarComer">Avisar Que Vai Comer</string>
+    <string name="avaliarRefeicao">Avaliar Qualidade da Refeição</string>
+    <string name="votarDia">Votar Dia a Dia</string>
+    <string name="votarSemana">Votar Semana Completa</string>
+    <string name="voltar">Voltar</string>
+    <string name="sair">Sair</string>
 </resources>
