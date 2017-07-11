@@ -12,10 +12,11 @@
     android:paddingTop="@dimen/activity_vertical_margin" >
 
     <EditText
+        android:id="@+id/editNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nome"
-        android:id="@+id/editNome" />
+        android:hint="Nome Completo"
+        android:inputType="text" />
 
     <EditText
         android:layout_width="match_parent"
@@ -23,12 +24,37 @@
         android:inputType="textEmailAddress"
         android:hint="Email"
         android:ems="10"
-        android:id="@+id/editEmail2" />
+        android:id="@+id/editEmail2"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Senha"
-        android:id="@+id/editSenha2" />
+        android:inputType="number"
+        android:hint="RG"
+        android:ems="10"
+        android:id="@+id/editRG" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Matrícula/Siape"
+        android:ems="10"
+        android:id="@+id/editMatriculaSiape" />
+
+    <EditText
+        android:id="@+id/editSenha2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Senha" />
+
+    <EditText
+        android:id="@+id/editConfirmaSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirmar Senha"
+        android:inputType="textPassword" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -40,14 +66,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:id="@+id/btnRegistrar" />
+        android:id="@+id/btnRegistrar"
+        android:onClick="onClick"/>
 
     <Button
         android:text="Cancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:id="@+id/btnCancelar" />
+        android:id="@+id/btnCancelar"
+        android:onClick="telaLogin"/>
 
      </LinearLayout>
 
