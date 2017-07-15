@@ -1,7 +1,6 @@
 package android.usuario.rudigital;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,64 +35,53 @@ public class TelaCadastro extends AppCompatActivity implements View.OnClickListe
         editConfirmaSenha = (EditText) findViewById(R.id.editConfirmaSenha);
         btnCancelar = (Button) findViewById(R.id.btnCancelar);
         btnRegistar = (Button) findViewById(R.id.btnRegistrar);
-
         btnRegistar.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
-        if (!(editSenha2.getText().toString().equals(editConfirmaSenha.getText().toString()))) {
+        if (editNome.getText().toString().isEmpty() || editEmail2.getText().toString().isEmpty() || editRG.getText().toString().isEmpty() || editMatriculaSiape.getText().toString().isEmpty() || editSenha2.getText().toString().isEmpty() || editConfirmaSenha.getText().toString().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Todos os campos são obrigatorios!", Toast.LENGTH_SHORT).show();
+        } else if (!(editSenha2.getText().toString().equals(editConfirmaSenha.getText().toString()))) {
             Toast.makeText(getApplicationContext(), "Senhas não conferem!", Toast.LENGTH_SHORT).show();
-        }
+        } else if (editSenha2.length() < 8 || editConfirmaSenha.length() < 8) {
+            Toast.makeText(getApplicationContext(), "Senha tem que ter no minímo 8 digitos!", Toast.LENGTH_SHORT).show();
+        } else {
 
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
 
+                    try {
 
-                try {
+                        String nome = editNome.getText().toString();
+                        String email = editEmail2.getText().toString();
+                        String rg = editRG.getText().toString();
+                        String matriculasiape = editMatriculaSiape.getText().toString();
+                        String senha = editSenha2.getText().toString();
+                        String confirmaSenha = editConfirmaSenha.getText().toString();
 
-                    String nome = editNome.getText().toString();
-                    String email = editEmail2.getText().toString();
-                    String rg = editRG.getText().toString();
-                    String matriculasiape = editMatriculaSiape.getText().toString();
-                    String senha = editSenha2.getText().toString();
-                    String confirmaSenha = editConfirmaSenha.getText().toString();
+                        url = "HTTP://192.168.0.105:802/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg + "&confirmaSenha" + confirmaSenha;
 
-                    url = "HTTP://192.168.0.101:802/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg;
+                        okHttpClient = new OkHttpClient();
+                        request = new Request.Builder().url(url).build();
 
-                    okHttpClient = new OkHttpClient();
-                    request = new Request.Builder().url(url).build();
+                        Response response = okHttpClient.newCall(request).execute();
+                        Log.i("MSG", response.body().string());
 
-                    Response response = okHttpClient.newCall(request).execute();
-                    Log.i("MSG", response.body().string());
-
-                    //Toast.makeText(getApplicationContext(), "Cadastrado com Sucesso!", Toast.LENGTH_SHORT).show();
-                    //AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-                    //dlg.setMessage("Cadastrado com Sucesso!");
-                    //dlg.show();
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //Toast.makeText(getApplicationContext(), "Erro no Cadastro!", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        };
-
-        Thread threadCadastrar = new Thread(r);
-        threadCadastrar.start();
+            };
+            Thread threadCadastrar = new Thread(r);
+            threadCadastrar.start();
+        }
     }
-
 
     public void telaLogin(View v) {
         Intent abreLogin = new Intent(this, TelaLogin.class);
         startActivity(abreLogin);
     }
 }
-
-
-
-
-
