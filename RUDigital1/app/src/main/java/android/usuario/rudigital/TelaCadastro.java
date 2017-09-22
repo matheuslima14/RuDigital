@@ -1,6 +1,7 @@
 package android.usuario.rudigital;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class TelaCadastro extends AppCompatActivity implements View.OnClickListe
         editMatriculaSiape = (EditText) findViewById(R.id.editMatriculaSiape);
         editSenha2 = (EditText) findViewById(R.id.editSenha2);
         editConfirmaSenha = (EditText) findViewById(R.id.editConfirmaSenha);
+
         btnCancelar = (Button) findViewById(R.id.btnCancelar);
         btnRegistar = (Button) findViewById(R.id.btnRegistrar);
         btnRegistar.setOnClickListener(this);
@@ -40,6 +42,7 @@ public class TelaCadastro extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
 
         if (editNome.getText().toString().isEmpty() || editEmail2.getText().toString().isEmpty() || editRG.getText().toString().isEmpty() || editMatriculaSiape.getText().toString().isEmpty() || editSenha2.getText().toString().isEmpty() || editConfirmaSenha.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Todos os campos são obrigatorios!", Toast.LENGTH_SHORT).show();
@@ -62,23 +65,43 @@ public class TelaCadastro extends AppCompatActivity implements View.OnClickListe
                         String senha = editSenha2.getText().toString();
                         String confirmaSenha = editConfirmaSenha.getText().toString();
 
-                        url = "HTTP://192.168.0.105:802/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg + "&confirmaSenha" + confirmaSenha;
+                        url = "HTTP://172.19.5.2:802/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg + "&confirmaSenha" + confirmaSenha;
 
                         okHttpClient = new OkHttpClient();
                         request = new Request.Builder().url(url).build();
 
                         Response response = okHttpClient.newCall(request).execute();
                         Log.i("MSG", response.body().string());
+                        handler.sendEmptyMessage(1);
 
                     } catch (Exception e) {
+                        handler.sendEmptyMessage(0);
                         e.printStackTrace();
                     }
                 }
             };
+
             Thread threadCadastrar = new Thread(r);
             threadCadastrar.start();
         }
     }
+
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what == 1) {
+
+                editNome.setText("");
+                editEmail2.setText("");
+                editRG.setText("");
+                editMatriculaSiape.setText("");
+                editSenha2.setText("");
+                editConfirmaSenha.setText("");
+                Toast.makeText(getBaseContext(), "Cadastrado com Sucesso!", Toast.LENGTH_SHORT).show();
+            } else if (msg.what == 0) {
+                Toast.makeText(getBaseContext(), "Erro no Cadastro!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     public void telaLogin(View v) {
         Intent abreLogin = new Intent(this, TelaLogin.class);

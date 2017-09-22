@@ -2,6 +2,7 @@ package android.usuario.rudigital;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +11,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class TelaLogin extends AppCompatActivity {
 
@@ -23,6 +29,7 @@ public class TelaLogin extends AppCompatActivity {
     private OkHttpClient okHttpClient;
     private Request request;
     private String url;
+    List<Usuario> usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +49,6 @@ public class TelaLogin extends AppCompatActivity {
             }
         });
 
-
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +67,7 @@ public class TelaLogin extends AppCompatActivity {
                                 String matriculasiape = editMatriculaSiape.getText().toString();
                                 String senha = editSenha1.getText().toString();
 
-                                url = "HTTP://192.168.0.105:802/appRUDigital/CadastroUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha;
+                                url = "HTTP://172.19.5.2:802/appRUDigital/LoginUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha;
 
                                 okHttpClient = new OkHttpClient();
                                 request = new Request.Builder().url(url).build();
@@ -69,12 +75,23 @@ public class TelaLogin extends AppCompatActivity {
                                 Response response = okHttpClient.newCall(request).execute();
                                 Log.i("MSG", response.body().string());
 
-                                if (response.body().string() != null) {
+                                Gson json = new Gson();
+
+                                Type collectionType = new TypeToken<List<Usuario>>() {
+                                }.getType();
+
+                                usuario = json.fromJson(response.body().string(), collectionType);
+                                handler.sendEmptyMessage(0);
+
+                                if (usuario.get(0) != null) {
                                     Intent telaMenu = new Intent(TelaLogin.this, TelaMenu.class);
                                     startActivity(telaMenu);
+                                } else {
+                                    handler.sendEmptyMessage(0);
                                 }
 
                             } catch (Exception e) {
+                                handler.sendEmptyMessage(0);
                                 e.printStackTrace();
                             }
                         }
@@ -85,4 +102,12 @@ public class TelaLogin extends AppCompatActivity {
             }
         });
     }
+
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what == 0) {
+                Toast.makeText(getBaseContext(), "Erro ao Logar!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 }
