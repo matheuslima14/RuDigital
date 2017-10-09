@@ -6,11 +6,11 @@ package android.usuario.rudigital;
 
 public class Usuario {
 
-    private int matriculaSiape;
+    private String matriculasiape;
     private String nome;
     private String email;
     private String senha;
-    private int rg;
+    private String rg;
 
     public String getNome() {
         return nome;
@@ -28,20 +28,20 @@ public class Usuario {
         this.email = email;
     }
 
-    public int getRg() {
+    public String getRg() {
         return rg;
     }
 
-    public void setRg(int rg) {
+    public void setRg(String rg) {
         this.rg = rg;
     }
 
-    public int getMatriculaSiape() {
-        return matriculaSiape;
+    public String getMatriculaSiape() {
+        return matriculasiape;
     }
 
-    public void setMatriculaSiape(int matriculaSiape) {
-        this.matriculaSiape = matriculaSiape;
+    public void setMatriculaSiape(String matriculasiape) {
+        this.matriculasiape = matriculasiape;
     }
 
     public String getSenha() {
