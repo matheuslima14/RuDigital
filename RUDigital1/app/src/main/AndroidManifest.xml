@@ -16,7 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".TelaCadastro" />
-        <activity android:name=".TelaInicial" />
         <activity
             android:name=".TelaMenu"
             android:label="@string/menuInicial"
