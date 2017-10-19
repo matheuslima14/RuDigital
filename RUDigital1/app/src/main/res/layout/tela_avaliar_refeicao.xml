@@ -19,4 +19,38 @@
         android:layout_alignParentRight="true"
         android:text="@string/voltar" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="Avaliação do dia"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <RatingBar
+        android:id="@+id/nota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="107dp" />
+
+    <Button
+        android:id="@+id/btnAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/nota"
+        android:layout_alignLeft="@+id/nota"
+        android:layout_alignRight="@+id/nota"
+        android:layout_alignStart="@+id/nota"
+        android:layout_below="@+id/nota"
+        android:layout_marginTop="81dp"
+        android:text="Avaliar" />
+
 </RelativeLayout>

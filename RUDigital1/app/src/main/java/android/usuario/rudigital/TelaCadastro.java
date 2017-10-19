@@ -65,7 +65,7 @@ public class TelaCadastro extends AppCompatActivity implements View.OnClickListe
                         String senha = editSenha2.getText().toString();
                         String confirmaSenha = editConfirmaSenha.getText().toString();
 
-                        url = "HTTP://192.168.0.100:802/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg + "&confirmaSenha" + confirmaSenha;
+                        url = "HTTP://172.19.7.33:802/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg + "&confirmaSenha" + confirmaSenha;
 
                         okHttpClient = new OkHttpClient();
                         request = new Request.Builder().url(url).build();

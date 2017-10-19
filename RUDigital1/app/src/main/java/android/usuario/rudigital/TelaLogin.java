@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
+
 import java.io.IOException;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -63,51 +66,60 @@ public class TelaLogin extends AppCompatActivity {
         String matriculasiape = editMatriculaSiape.getText().toString();
         String senha = editSenha1.getText().toString();
 
-        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/LoginUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
-                client.newCall(request).enqueue(new Callback() {
+        final Request request = new Request.Builder().url("http://172.19.7.33:802/appRUDigital/LoginUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //falho
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onResponse(Call call, final Response response) throws IOException {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                try {
-
-                                    Gson json = new Gson();
-
-                                    usuario = json.fromJson(response.body().string(), Usuario.class);
-
-                                    if (usuario != null) {
-                                        handler.sendEmptyMessage(0);
-                                    } else {
-                                        handler.sendEmptyMessage(1);
-                                    }
-
-
-                                } catch (IOException ioe) {
-                                    handler.sendEmptyMessage(2);
-                                }
-                            }
-                        });
+                    public void run() {
+                        //falho
                     }
                 });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                            Gson json = new Gson();
+
+                            usuario = json.fromJson(response.body().string(), Usuario.class);
+
+                            if (usuario != null) {
+                                handler.sendEmptyMessage(0);
+                            } else {
+                                handler.sendEmptyMessage(1);
+                            }
+
+
+                        } catch (IOException ioe) {
+                            handler.sendEmptyMessage(2);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
+                editMatriculaSiape.setText("");
+                editSenha1.setText("");
+
                 Intent telaMenu = new Intent(TelaLogin.this, TelaMenu.class);
+                telaMenu.putExtra("matriculasiape", usuario.getMatriculaSiape());
+                telaMenu.putExtra("nome", usuario.getNome());
+                telaMenu.putExtra("email", usuario.getEmail());
+                telaMenu.putExtra("senha", usuario.getSenha());
+                telaMenu.putExtra("rg", usuario.getRg());
                 startActivity(telaMenu);
+
                 Toast.makeText(getBaseContext(), "Logado com Sucesso!", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 1) {
                 Toast.makeText(getBaseContext(), "Usuário não Encontrado!", Toast.LENGTH_SHORT).show();
