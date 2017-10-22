@@ -14,9 +14,9 @@ public class Avaliacao {
 
     private String id;
     private String dataVoto;
-    private String nota;
+    private String notaAlmoco;
+    private String notaJanta;
     private String matriculasiape;
-
 
     public String getId() {
         return id;
@@ -34,12 +34,20 @@ public class Avaliacao {
         this.dataVoto = dataVoto;
     }
 
-    public String getNota() {
-        return nota;
+    public String getNotaAlmoco() {
+        return notaAlmoco;
     }
 
-    public void setNota(String nota) {
-        this.nota = nota;
+    public void setNotaAlmoco(String notaAlmoco) {
+        this.notaAlmoco = notaAlmoco;
+    }
+
+    public String getNotaJanta() {
+        return notaJanta;
+    }
+
+    public void setNotaJanta(String notaJanta) {
+        this.notaJanta = notaJanta;
     }
 
     public String getMatriculasiape() {

@@ -32,25 +32,48 @@
         android:layout_centerHorizontal="true" />
 
     <RatingBar
-        android:id="@+id/nota"
+        android:id="@+id/notaJanta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:layout_below="@+id/notaAlmoco"
+        android:layout_centerHorizontal="true" />
+
+    <RatingBar
+        android:id="@+id/notaAlmoco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:numStars="5"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="107dp" />
+        android:layout_alignLeft="@+id/notaJanta"
+        android:layout_alignStart="@+id/notaJanta"
+        android:layout_marginTop="98dp" />
 
     <Button
         android:id="@+id/btnAvaliar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/nota"
-        android:layout_alignLeft="@+id/nota"
-        android:layout_alignRight="@+id/nota"
-        android:layout_alignStart="@+id/nota"
-        android:layout_below="@+id/nota"
-        android:layout_marginTop="81dp"
-        android:text="Avaliar" />
+        android:text="Avaliar"
+        android:layout_above="@+id/btn_voltar"
+        android:layout_alignLeft="@+id/notaJanta"
+        android:layout_alignStart="@+id/notaJanta"
+        android:layout_marginBottom="47dp"
+        android:layout_alignRight="@+id/notaJanta"
+        android:layout_alignEnd="@+id/notaJanta" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avaliação de almoço e jantar"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/notaAlmoco"
+        android:layout_alignStart="@+id/notaAlmoco"
+        android:layout_marginTop="64dp" />
 
 </RelativeLayout>

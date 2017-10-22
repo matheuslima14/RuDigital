@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -27,9 +26,11 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
     public Button btn_voltar;
     private Button btnAvaliar;
     private OkHttpClient client;
-    private RatingBar nota;
-    String notaAtribuida;
-    String dataNota;
+    private RatingBar notaAlmoco;
+    private RatingBar notaJanta;
+    String notaatribuidaalmoco;
+    String notaatribuidajanta;
+    String datanota;
     Usuario usuario;
     Avaliacao avaliacao;
 
@@ -47,15 +48,18 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
         usuario.setSenha(intent.getStringExtra("senha"));
         usuario.setRg(intent.getStringExtra("rg"));
 
-        nota = (RatingBar) findViewById(R.id.nota);
+        notaAlmoco = (RatingBar) findViewById(R.id.notaAlmoco);
+        notaJanta = (RatingBar) findViewById(R.id.notaJanta);
         btnAvaliar = (Button) findViewById(R.id.btnAvaliar);
         btn_voltar = (Button) findViewById(R.id.btn_voltar);
+
+        getWebService2();
 
         this.btnAvaliar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if (nota.getRating() == 0.0) {
-                    Toast.makeText(getBaseContext(), "Faça uma Avaliação!", Toast.LENGTH_SHORT).show();
+                if (notaAlmoco.getRating() == 0.0 && notaJanta.getRating() == 0.0) {
+                    Toast.makeText(getBaseContext(), "Faça sua Avaliação!", Toast.LENGTH_SHORT).show();
                 } else {
                     client = new OkHttpClient();
                     getWebService();
@@ -81,13 +85,12 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
 
     private void getWebService() {
 
-        notaAtribuida = String.valueOf(nota.getRating());
-        dataNota = DateFormat.getDateInstance().format(new Date());
+        notaatribuidaalmoco = String.valueOf(notaAlmoco.getRating());
+        notaatribuidajanta = String.valueOf(notaJanta.getRating());
+        datanota = DateFormat.getDateInstance().format(new Date());
         String matriculasiape = usuario.getMatriculaSiape();
 
-        float notaconvertida = nota.getRating();
-
-        final Request request = new Request.Builder().url("http://172.19.7.33:802/appRUDigital/AvaliarServico.php?matriculasiape=" + matriculasiape + "&notaAtribuida=" + notaconvertida + "&dataNota=" + dataNota).build();
+        final Request request = new Request.Builder().url("http://192.168.1.3:802/appRUDigital/AvaliarServico.php?matriculasiape=" + matriculasiape + "&notaAtribuidaAlmoco=" + notaatribuidaalmoco + "&notaAtribuidaJanta=" + notaatribuidajanta + "&dataNota=" + datanota).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -126,18 +129,69 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
         });
     }
 
-
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
                 Intent telaMenu = new Intent(TelaAvaliarRefeicao.this, TelaMenu.class);
                 startActivity(telaMenu);
-                Toast.makeText(getBaseContext(), "\tNota: " + notaAtribuida + " \n\tAtribuída com Sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Nota atribuída com Sucesso!", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 1) {
-                Toast.makeText(getBaseContext(), "O Serviço de hoje já foi avaliado!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Nota de hoje atualizada com Sucesso!", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 2) {
                 Toast.makeText(getBaseContext(), "Erro ao Fazer Avaliação!", Toast.LENGTH_SHORT).show();
+            } else if (msg.what == 3) {
+                notaAlmoco.setRating(Float.parseFloat(avaliacao.getNotaAlmoco()));
+                notaJanta.setRating(Float.parseFloat(avaliacao.getNotaJanta()));
+            } else if (msg.what == 4) {
+
+            } else if (msg.what == 5) {
+                Toast.makeText(getBaseContext(), "Falha de Comunicação com Servidor!", Toast.LENGTH_SHORT).show();
             }
         }
     };
+
+    private void getWebService2() {
+
+        datanota = DateFormat.getDateInstance().format(new Date());
+        String matriculasiape = usuario.getMatriculaSiape();
+
+        final Request request = new Request.Builder().url("http://192.168.1.3:802/appRUDigital/ExibirAvaliacao.php?matriculasiape=" + matriculasiape + "&datanota=" + datanota).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //falho
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                            Gson json = new Gson();
+
+                            avaliacao = json.fromJson(response.body().string(), Avaliacao.class);
+
+                            if (avaliacao != null) {
+                                handler.sendEmptyMessage(3);
+                            } else {
+                                handler.sendEmptyMessage(4);
+                            }
+
+                        } catch (IOException ioe) {
+                            handler.sendEmptyMessage(5);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
 }
