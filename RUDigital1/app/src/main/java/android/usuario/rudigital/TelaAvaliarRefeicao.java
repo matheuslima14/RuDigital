@@ -12,8 +12,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,9 +26,8 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
     private OkHttpClient client;
     private RatingBar notaAlmoco;
     private RatingBar notaJanta;
-    String notaatribuidaalmoco;
-    String notaatribuidajanta;
-    String datanota;
+    float notaatribuidaalmoco;
+    float notaatribuidajanta;
     Usuario usuario;
     Avaliacao avaliacao;
 
@@ -53,7 +50,8 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
         btnAvaliar = (Button) findViewById(R.id.btnAvaliar);
         btn_voltar = (Button) findViewById(R.id.btn_voltar);
 
-        getWebService2();
+        client = new OkHttpClient();
+        getWebServiceBuscarNotas();
 
         this.btnAvaliar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -85,19 +83,18 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
 
     private void getWebService() {
 
-        notaatribuidaalmoco = String.valueOf(notaAlmoco.getRating());
-        notaatribuidajanta = String.valueOf(notaJanta.getRating());
-        datanota = DateFormat.getDateInstance().format(new Date());
+        notaatribuidaalmoco = notaAlmoco.getRating();
+        notaatribuidajanta = notaJanta.getRating();
         String matriculasiape = usuario.getMatriculaSiape();
 
-        final Request request = new Request.Builder().url("http://192.168.1.3:802/appRUDigital/AvaliarServico.php?matriculasiape=" + matriculasiape + "&notaAtribuidaAlmoco=" + notaatribuidaalmoco + "&notaAtribuidaJanta=" + notaatribuidajanta + "&dataNota=" + datanota).build();
+        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/AvaliarServico.php?matriculasiape=" + matriculasiape + "&notaAtribuidaAlmoco=" + notaatribuidaalmoco + "&notaAtribuidaJanta=" + notaatribuidajanta).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //falho
+
                     }
                 });
             }
@@ -115,9 +112,9 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
                             avaliacao = json.fromJson(response.body().string(), Avaliacao.class);
 
                             if (avaliacao != null) {
-                                handler.sendEmptyMessage(0);
-                            } else {
                                 handler.sendEmptyMessage(1);
+                            } else {
+                                handler.sendEmptyMessage(0);
                             }
 
                         } catch (IOException ioe) {
@@ -134,35 +131,43 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
             if (msg.what == 0) {
                 Intent telaMenu = new Intent(TelaAvaliarRefeicao.this, TelaMenu.class);
                 startActivity(telaMenu);
-                Toast.makeText(getBaseContext(), "Nota atribuída com Sucesso!", Toast.LENGTH_SHORT).show();
+                TelaAvaliarRefeicao.this.finish();
+                Toast.makeText(getBaseContext(), "Nota não atribuída!", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 1) {
-                Toast.makeText(getBaseContext(), "Nota de hoje atualizada com Sucesso!", Toast.LENGTH_SHORT).show();
+                Intent telaMenu = new Intent(TelaAvaliarRefeicao.this, TelaMenu.class);
+                telaMenu.putExtra("matriculasiape", usuario.getMatriculaSiape());
+                telaMenu.putExtra("nome", usuario.getNome());
+                telaMenu.putExtra("email", usuario.getEmail());
+                telaMenu.putExtra("senha", usuario.getSenha());
+                telaMenu.putExtra("rg", usuario.getRg());
+                startActivity(telaMenu);
+                TelaAvaliarRefeicao.this.finish();
+                Toast.makeText(getBaseContext(), "Nota atribuida com sucesso!", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 2) {
                 Toast.makeText(getBaseContext(), "Erro ao Fazer Avaliação!", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 3) {
-                notaAlmoco.setRating(Float.parseFloat(avaliacao.getNotaAlmoco()));
-                notaJanta.setRating(Float.parseFloat(avaliacao.getNotaJanta()));
-            } else if (msg.what == 4) {
-
+                notaAlmoco.setRating(avaliacao.getNotaAtribuidaAlmoco());
+                notaJanta.setRating(avaliacao.getNotaAtribuidaJanta());
             } else if (msg.what == 5) {
                 Toast.makeText(getBaseContext(), "Falha de Comunicação com Servidor!", Toast.LENGTH_SHORT).show();
             }
         }
     };
 
-    private void getWebService2() {
 
-        datanota = DateFormat.getDateInstance().format(new Date());
-        String matriculasiape = usuario.getMatriculaSiape();
+    private void getWebServiceBuscarNotas() {
 
-        final Request request = new Request.Builder().url("http://192.168.1.3:802/appRUDigital/ExibirAvaliacao.php?matriculasiape=" + matriculasiape + "&datanota=" + datanota).build();
+        String matriculasiape;
+        matriculasiape = usuario.getMatriculaSiape();
+
+        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/ExibirAvaliacao.php?matriculasiape=" + matriculasiape).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //falho
+
                     }
                 });
             }
@@ -181,8 +186,6 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
 
                             if (avaliacao != null) {
                                 handler.sendEmptyMessage(3);
-                            } else {
-                                handler.sendEmptyMessage(4);
                             }
 
                         } catch (IOException ioe) {
@@ -193,5 +196,6 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
             }
         });
     }
+
 
 }

@@ -1,8 +1,5 @@
 package android.usuario.rudigital;
 
-/**
- * Created by Pedro Junio on 29/08/2017.
- */
 
 public class Usuario {
 

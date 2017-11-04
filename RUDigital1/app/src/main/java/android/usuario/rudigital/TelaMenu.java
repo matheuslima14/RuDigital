@@ -6,13 +6,17 @@ import android.widget.Button;
 import android.view.View;
 import android.content.*;
 
-public class TelaMenu extends AppCompatActivity{
+import okhttp3.OkHttpClient;
+
+public class TelaMenu extends AppCompatActivity {
 
     private Button btn_votarCardapio;
     private Button btn_avisarComer;
     private Button btn_avaliarRefeicao;
     private Button btn_Sair;
+    private OkHttpClient client;
     Usuario usuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +36,9 @@ public class TelaMenu extends AppCompatActivity{
         this.btn_avaliarRefeicao = (Button) findViewById(R.id.btn_avaliarRefeicao);
         this.btn_Sair = (Button) findViewById(R.id.btn_Sair);
 
-        this.btn_votarCardapio.setOnClickListener(new View.OnClickListener(){
+        this.btn_votarCardapio.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent irTelaVotarCardapio = new Intent(TelaMenu.this, TelaVotarCardapio.class);
                 irTelaVotarCardapio.putExtra("matriculasiape", usuario.getMatriculaSiape());
                 irTelaVotarCardapio.putExtra("nome", usuario.getNome());
@@ -46,9 +50,9 @@ public class TelaMenu extends AppCompatActivity{
             }
         });
 
-        this.btn_avisarComer.setOnClickListener(new View.OnClickListener(){
+        this.btn_avisarComer.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent irTelaAvisarComer = new Intent(TelaMenu.this, TelaAvisarComer.class);
                 irTelaAvisarComer.putExtra("matriculasiape", usuario.getMatriculaSiape());
                 irTelaAvisarComer.putExtra("nome", usuario.getNome());
@@ -60,23 +64,22 @@ public class TelaMenu extends AppCompatActivity{
             }
         });
 
-        this.btn_avaliarRefeicao.setOnClickListener(new View.OnClickListener(){
+        this.btn_avaliarRefeicao.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent irTelaAvaliarRefeicao = new Intent(TelaMenu.this, TelaAvaliarRefeicao.class);
                 irTelaAvaliarRefeicao.putExtra("matriculasiape", usuario.getMatriculaSiape());
                 irTelaAvaliarRefeicao.putExtra("nome", usuario.getNome());
                 irTelaAvaliarRefeicao.putExtra("email", usuario.getEmail());
                 irTelaAvaliarRefeicao.putExtra("senha", usuario.getSenha());
-                irTelaAvaliarRefeicao.putExtra("rg", usuario.getRg());
                 TelaMenu.this.startActivity(irTelaAvaliarRefeicao);
                 TelaMenu.this.finish();
             }
         });
 
-        this.btn_Sair.setOnClickListener(new View.OnClickListener(){
+        this.btn_Sair.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent irTelaLogin = new Intent(TelaMenu.this, TelaLogin.class);
                 TelaMenu.this.startActivity(irTelaLogin);
                 TelaMenu.this.finish();

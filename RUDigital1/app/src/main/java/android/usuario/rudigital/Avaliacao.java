@@ -1,60 +1,53 @@
 package android.usuario.rudigital;
 
-import android.provider.ContactsContract;
-
-import java.text.DateFormat;
-import java.util.Date;
-
-/**
- * Created by Pedro Junio on 12/10/2017.
- */
 
 public class Avaliacao {
 
 
-    private String id;
-    private String dataVoto;
-    private String notaAlmoco;
-    private String notaJanta;
-    private String matriculasiape;
+    private int id;
+    private String dataAvaliacao;
+    private float notaAtribuidaAlmoco;
+    private float notaAtribuidaJanta;
+    private int matriculasiape;
 
-    public String getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getDataVoto() {
-        return dataVoto;
+    public String getDataAvaliacao() {
+        return dataAvaliacao;
     }
 
-    public void setDataVoto(String dataVoto) {
-        this.dataVoto = dataVoto;
+    public void setDataAvaliacao(String dataAvaliacao) {
+        this.dataAvaliacao = dataAvaliacao;
     }
 
-    public String getNotaAlmoco() {
-        return notaAlmoco;
+    public float getNotaAtribuidaAlmoco() {
+        return notaAtribuidaAlmoco;
     }
 
-    public void setNotaAlmoco(String notaAlmoco) {
-        this.notaAlmoco = notaAlmoco;
+    public void setNotaAtribuidaAlmoco(float notaAtribuidaAlmoco) {
+        this.notaAtribuidaAlmoco = notaAtribuidaAlmoco;
     }
 
-    public String getNotaJanta() {
-        return notaJanta;
+    public float getNotaAtribuidaJanta() {
+        return notaAtribuidaJanta;
     }
 
-    public void setNotaJanta(String notaJanta) {
-        this.notaJanta = notaJanta;
+    public void setNotaAtribuidaJanta(float notaAtribuidaJanta) {
+        this.notaAtribuidaJanta = notaAtribuidaJanta;
     }
 
-    public String getMatriculasiape() {
+    public int getMatriculasiape() {
         return matriculasiape;
     }
 
-    public void setMatriculasiape(String matriculasiape) {
+    public void setMatriculasiape(int matriculasiape) {
         this.matriculasiape = matriculasiape;
     }
 }

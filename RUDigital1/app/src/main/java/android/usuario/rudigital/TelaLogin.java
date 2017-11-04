@@ -66,14 +66,14 @@ public class TelaLogin extends AppCompatActivity {
         String matriculasiape = editMatriculaSiape.getText().toString();
         String senha = editSenha1.getText().toString();
 
-        final Request request = new Request.Builder().url("http://192.168.1.3:802/appRUDigital/LoginUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
+        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/LoginUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //falho
+
                     }
                 });
             }
@@ -111,7 +111,6 @@ public class TelaLogin extends AppCompatActivity {
             if (msg.what == 0) {
                 editMatriculaSiape.setText("");
                 editSenha1.setText("");
-
                 Intent telaMenu = new Intent(TelaLogin.this, TelaMenu.class);
                 telaMenu.putExtra("matriculasiape", usuario.getMatriculaSiape());
                 telaMenu.putExtra("nome", usuario.getNome());
@@ -119,7 +118,6 @@ public class TelaLogin extends AppCompatActivity {
                 telaMenu.putExtra("senha", usuario.getSenha());
                 telaMenu.putExtra("rg", usuario.getRg());
                 startActivity(telaMenu);
-
                 Toast.makeText(getBaseContext(), "Logado com Sucesso!", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 1) {
                 Toast.makeText(getBaseContext(), "Usuário não Encontrado!", Toast.LENGTH_SHORT).show();
