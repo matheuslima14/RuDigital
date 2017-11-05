@@ -6,15 +6,12 @@ import android.widget.Button;
 import android.view.View;
 import android.content.*;
 
-import okhttp3.OkHttpClient;
-
 public class TelaMenu extends AppCompatActivity {
 
     private Button btn_votarCardapio;
     private Button btn_avisarComer;
     private Button btn_avaliarRefeicao;
     private Button btn_Sair;
-    private OkHttpClient client;
     Usuario usuario;
 
     @Override
@@ -72,6 +69,7 @@ public class TelaMenu extends AppCompatActivity {
                 irTelaAvaliarRefeicao.putExtra("nome", usuario.getNome());
                 irTelaAvaliarRefeicao.putExtra("email", usuario.getEmail());
                 irTelaAvaliarRefeicao.putExtra("senha", usuario.getSenha());
+                irTelaAvaliarRefeicao.putExtra("rg", usuario.getRg());
                 TelaMenu.this.startActivity(irTelaAvaliarRefeicao);
                 TelaMenu.this.finish();
             }
