@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tela_cadastro"
+    android:id="@+id/tela_recuperar_senha"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -13,59 +13,21 @@
     android:weightSum="1">
 
     <TextView
-        android:id="@+id/textCadastro"
+        android:id="@+id/txtRecuperar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cadastro"
+        android:text="Recuperar Senha"
         android:textAlignment="center"
         android:textSize="40dp"
         android:textColor="@color/colorPrimaryDark"
         android:layout_weight="0.16" />
 
     <EditText
-        android:id="@+id/editNome"
+        android:id="@+id/edtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nome Completo"
-        android:inputType="text" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
         android:hint="Email"
-        android:ems="10"
-        android:id="@+id/editEmail2"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="RG"
-        android:ems="10"
-        android:id="@+id/editRG" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="Matrícula ou Siape"
-        android:ems="10"
-        android:id="@+id/editMatriculaSiape" />
-
-    <EditText
-        android:id="@+id/editSenha2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="Senha" />
-
-    <EditText
-        android:id="@+id/editConfirmaSenha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Confirmar Senha"
-        android:inputType="textPassword" />
+        android:inputType="text" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,7 +35,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnRegistrar"
+            android:id="@+id/btnRecuperar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -81,7 +43,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
             android:onClick="onClick"
-            android:text="Registrar"
+            android:text="Recuperar"
             android:textColor="@android:color/background_light" />
 
         <Button

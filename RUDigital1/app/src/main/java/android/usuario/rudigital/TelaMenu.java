@@ -8,7 +8,7 @@ import android.content.*;
 
 public class TelaMenu extends AppCompatActivity {
 
-    private Button btn_votarCardapio;
+    private Button btn_votarCardapio, btnConfiguracoes;
     private Button btn_avisarComer;
     private Button btn_avaliarRefeicao;
     private Button btn_Sair;
@@ -32,6 +32,21 @@ public class TelaMenu extends AppCompatActivity {
         this.btn_avisarComer = (Button) findViewById(R.id.btn_avisarComer);
         this.btn_avaliarRefeicao = (Button) findViewById(R.id.btn_avaliarRefeicao);
         this.btn_Sair = (Button) findViewById(R.id.btn_Sair);
+        this.btnConfiguracoes = (Button) findViewById(R.id.btnConfiguracoes);
+
+        this.btnConfiguracoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent irTelaConfiguracoes = new Intent(TelaMenu.this, TelaConfiguracoes.class);
+                irTelaConfiguracoes.putExtra("matriculasiape", usuario.getMatriculaSiape());
+                irTelaConfiguracoes.putExtra("nome", usuario.getNome());
+                irTelaConfiguracoes.putExtra("email", usuario.getEmail());
+                irTelaConfiguracoes.putExtra("senha", usuario.getSenha());
+                irTelaConfiguracoes.putExtra("rg", usuario.getRg());
+                TelaMenu.this.startActivity(irTelaConfiguracoes);
+                TelaMenu.this.finish();
+            }
+        });
 
         this.btn_votarCardapio.setOnClickListener(new View.OnClickListener() {
             @Override

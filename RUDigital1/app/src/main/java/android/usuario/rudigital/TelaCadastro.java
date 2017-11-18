@@ -75,7 +75,7 @@ public class TelaCadastro extends AppCompatActivity {
         String senha = editSenha2.getText().toString();
         String confirmaSenha = editConfirmaSenha.getText().toString();
 
-        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg + "&confirmaSenha" + confirmaSenha).build();
+        final Request request = new Request.Builder().url("https://pedrofjduarte.000webhostapp.com/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg + "&confirmaSenha" + confirmaSenha).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

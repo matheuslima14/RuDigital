@@ -23,7 +23,7 @@ import okhttp3.Response;
 public class TelaLogin extends AppCompatActivity {
 
     private EditText editMatriculaSiape, editSenha1;
-    private Button btnLogar;
+    private Button btnLogar, btnRegistrar;
     private TextView txtCadastro;
     private OkHttpClient client;
     Usuario usuario;
@@ -36,9 +36,18 @@ public class TelaLogin extends AppCompatActivity {
         editMatriculaSiape = (EditText) findViewById(R.id.editMatriculaSiape);
         editSenha1 = (EditText) findViewById(R.id.editSenha1);
         btnLogar = (Button) findViewById(R.id.btnLogar);
+        btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
         txtCadastro = (TextView) findViewById(R.id.txtCadastro);
 
         txtCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent abreRecuperarSenha = new Intent(TelaLogin.this, TelaRecuperarSenha.class);
+                startActivity(abreRecuperarSenha);
+            }
+        });
+
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent abreCadastro = new Intent(TelaLogin.this, TelaCadastro.class);
@@ -66,7 +75,7 @@ public class TelaLogin extends AppCompatActivity {
         String matriculasiape = editMatriculaSiape.getText().toString();
         String senha = editSenha1.getText().toString();
 
-        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/LoginUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
+        final Request request = new Request.Builder().url("https://pedrofjduarte.000webhostapp.com/appRUDigital/LoginUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

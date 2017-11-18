@@ -10,42 +10,54 @@
     android:orientation="vertical"
     app:layout_collapseMode="none">
 
+    <TextView
+        android:id="@+id/txtMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.27"
+        android:text="Menu"
+        android:textAlignment="center"
+        android:textColor="#006400"
+        android:textSize="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/btn_votarCardapio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/votarCardapio"
+        android:textColor="@android:color/background_light"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="200px"
-        android:text="@string/votarCardapio" />
+        android:layout_marginTop="85dp" />
 
     <Button
         android:id="@+id/btn_avisarComer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/avisarComer"
+        android:textColor="@android:color/background_light"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/btn_votarCardapio"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="400px"
-        android:text="@string/avisarComer" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btn_avaliarRefeicao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/avaliarRefeicao"
+        android:textColor="@android:color/background_light"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_below="@+id/btn_avisarComer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="600px"
-        android:text="@string/avaliarRefeicao" />
-
-    <TextView
-        android:id="@+id/txt_Menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:text="@string/menuInicial"
-        android:textSize="60px"/>
+        android:layout_marginTop="48dp" />
 
     <Button
         android:id="@+id/btn_Sair"
@@ -54,6 +66,22 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="@string/sair" />
+        android:background="@android:color/holo_red_dark"
+        android:text="@string/sair"
+        android:textColor="@android:color/background_light" />
+
+    <Button
+        android:id="@+id/btnConfiguracoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Configurações"
+        android:textColor="@android:color/background_light"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_below="@+id/btn_avaliarRefeicao"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="42dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

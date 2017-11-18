@@ -26,8 +26,6 @@ public class TelaVotarCardapio extends Activity {
         usuario.setRg(intent.getStringExtra("rg"));
 
         btn_voltar = (Button) findViewById(R.id.btn_voltar);
-        btn_votarDia = (Button) findViewById(R.id.btn_votarDia);
-        btn_VotarSemana = (Button) findViewById(R.id.btn_votarSemana);
 
         this.btn_voltar.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -44,23 +42,5 @@ public class TelaVotarCardapio extends Activity {
                 TelaVotarCardapio.this.finish();
             }
         });
-
-        /*this.btnVotarDiaaDia.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent telaCardapios_diarios = new Intent(Votar_cardapio.this, Cardapios_diarios.class);
-                Votar_cardapio.this.startActivity(telaCardapios_diarios);
-                Votar_cardapio.this.finish();
-            }
-        });*/
-
-        /*this.btnVotarSemanCompleta.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent telaRUDigital = new Intent(Votar_cardapio.this, RUDigital.class);
-                Votar_cardapio.this.startActivity(telaRUDigital);
-                Votar_cardapio.this.finish();
-            }
-        });*/
     }
 }

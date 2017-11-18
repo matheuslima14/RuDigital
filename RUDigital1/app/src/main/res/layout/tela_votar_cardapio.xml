@@ -17,7 +17,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="@string/voltar" />
+        android:background="@android:color/holo_red_dark"
+        android:text="@string/voltar"
+        android:textColor="@android:color/background_light" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -25,23 +27,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:orientation="vertical"></LinearLayout>
-
-    <Button
-        android:id="@+id/btn_votarDia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="100px"
-        android:text="@string/votarDia" />
-
-    <Button
-        android:id="@+id/btn_votarSemana"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="350px"
-        android:text="@string/votarSemana" />
 
 </RelativeLayout>

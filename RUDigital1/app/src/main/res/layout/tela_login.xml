@@ -4,7 +4,7 @@
     android:id="@+id/tela_login"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#00BFFF"
+    android:background="#fff"
     android:gravity="center"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -14,19 +14,20 @@
     android:weightSum="1">
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="350px"
-        android:text="Seja bem-vindo!"
-        android:textSize="40dp"
-        android:textColor="#fff"
-        android:layout_weight="0.11" />
+        android:layout_height="wrap_content"
+        android:layout_weight="0.27"
+        android:text="R.U. Digital"
+        android:textColor="#006400"
+        android:textSize="40dp" />
 
     <EditText
         android:id="@+id/editMatriculaSiape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Matrícula/Siape"
+        android:hint="Matrícula ou Siape"
         android:inputType="number"
         android:textAlignment="center" />
 
@@ -40,18 +41,34 @@
         android:textAlignment="center" />
 
     <Button
-        android:text="Logar"
-        android:layout_width="250dp"
+        android:id="@+id/btnLogar"
+        android:layout_width="344dp"
         android:layout_height="wrap_content"
-        android:id="@+id/btnLogar" />
+        android:background="?attr/colorPrimaryDark"
+        android:elevation="0dp"
+        android:text="Entrar"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/background_light" />
+
+    <Button
+        android:id="@+id/btnRegistrar"
+        android:layout_width="344dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"
+        android:elevation="0dp"
+        android:text="Criar Conta"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/background_light" />
 
     <TextView
-        android:textAlignment="center"
-        android:text="Não tem uma conta? Crie uma!"
+        android:id="@+id/txtCadastro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textColor="#fff"
-        android:id="@+id/txtCadastro" />
+        android:text="Recuperar Senha"
+        android:textAlignment="center"
+        android:textColor="#f00"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
 </LinearLayout>

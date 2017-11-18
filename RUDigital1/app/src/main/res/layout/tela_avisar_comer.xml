@@ -17,6 +17,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="@string/voltar" />
+        android:background="@android:color/holo_red_dark"
+        android:text="@string/voltar"
+        android:textColor="@android:color/background_light" />
 
 </RelativeLayout>

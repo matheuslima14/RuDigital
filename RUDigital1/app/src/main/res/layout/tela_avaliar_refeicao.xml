@@ -10,6 +10,19 @@
     android:orientation="vertical"
     app:layout_collapseMode="none">
 
+    <TextView
+        android:id="@+id/textAvaliacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.27"
+        android:text="Avaliação"
+        android:textAlignment="center"
+        android:textColor="#006400"
+        android:textSize="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
     <Button
         android:id="@+id/btn_voltar"
         android:layout_width="wrap_content"
@@ -17,63 +30,43 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:background="@android:color/holo_red_dark"
+        android:textColor="@android:color/background_light"
         android:text="@string/voltar" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="Avaliação do dia"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
-        android:textSize="24sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
     <RatingBar
         android:id="@+id/notaJanta"
+        android:theme="@style/RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:numStars="5"
-        android:layout_below="@+id/notaAlmoco"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <RatingBar
         android:id="@+id/notaAlmoco"
+        android:theme="@style/RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:numStars="5"
-        android:layout_below="@+id/textView"
+        android:layout_above="@+id/notaJanta"
         android:layout_alignLeft="@+id/notaJanta"
         android:layout_alignStart="@+id/notaJanta"
-        android:layout_marginTop="98dp" />
+        android:layout_marginBottom="13dp" />
 
     <Button
         android:id="@+id/btnAvaliar"
-        android:layout_width="wrap_content"
+        android:layout_width="344dp"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"
+        android:elevation="0dp"
         android:text="Avaliar"
+        android:layout_marginBottom="63dp"
+        android:textColor="@android:color/background_light"
         android:layout_above="@+id/btn_voltar"
-        android:layout_alignLeft="@+id/notaJanta"
-        android:layout_alignStart="@+id/notaJanta"
-        android:layout_marginBottom="47dp"
-        android:layout_alignRight="@+id/notaJanta"
-        android:layout_alignEnd="@+id/notaJanta" />
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Avaliação de almoço e jantar"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
-        android:textSize="18sp"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/notaAlmoco"
-        android:layout_alignStart="@+id/notaAlmoco"
-        android:layout_marginTop="64dp" />
 
 </RelativeLayout>
