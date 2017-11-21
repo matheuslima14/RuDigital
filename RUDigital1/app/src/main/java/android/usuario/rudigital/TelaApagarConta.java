@@ -13,11 +13,21 @@ public class TelaApagarConta extends AppCompatActivity {
     private EditText edtSenha;
     private Button btnExcluir;
     private Button btnVoltar;
+    Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tela_apagar_conta);
+
+        usuario = new Usuario();
+        Intent intent = getIntent();
+
+        usuario.setMatriculaSiape(intent.getStringExtra("matriculasiape"));
+        usuario.setNome(intent.getStringExtra("nome"));
+        usuario.setEmail(intent.getStringExtra("email"));
+        usuario.setSenha(intent.getStringExtra("senha"));
+        usuario.setRg(intent.getStringExtra("rg"));
 
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnExcluir = (Button) findViewById(R.id.btnExcluir);
@@ -27,7 +37,13 @@ public class TelaApagarConta extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent abreConfiguracoes = new Intent(TelaApagarConta.this, TelaConfiguracoes.class);
-                startActivity(abreConfiguracoes);
+                abreConfiguracoes.putExtra("matriculasiape", usuario.getMatriculaSiape());
+                abreConfiguracoes.putExtra("nome", usuario.getNome());
+                abreConfiguracoes.putExtra("email", usuario.getEmail());
+                abreConfiguracoes.putExtra("senha", usuario.getSenha());
+                abreConfiguracoes.putExtra("rg", usuario.getRg());
+                TelaApagarConta.this.startActivity(abreConfiguracoes);
+                TelaApagarConta.this.finish();
             }
         });
 

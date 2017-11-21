@@ -87,7 +87,7 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
         notaatribuidajanta = notaJanta.getRating();
         String matriculasiape = usuario.getMatriculaSiape();
 
-        final Request request = new Request.Builder().url("https://pedrofjduarte.000webhostapp.com/appRUDigital/AvaliarServico.php?matriculasiape=" + matriculasiape + "&notaAtribuidaAlmoco=" + notaatribuidaalmoco + "&notaAtribuidaJanta=" + notaatribuidajanta).build();
+        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/AvaliarServico.php?matriculasiape=" + matriculasiape + "&notaAtribuidaAlmoco=" + notaatribuidaalmoco + "&notaAtribuidaJanta=" + notaatribuidajanta).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -160,7 +160,7 @@ public class TelaAvaliarRefeicao extends AppCompatActivity {
         String matriculasiape;
         matriculasiape = usuario.getMatriculaSiape();
 
-        final Request request = new Request.Builder().url("https://pedrofjduarte.000webhostapp.com/appRUDigital/ExibirAvaliacao.php?matriculasiape=" + matriculasiape).build();
+        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/ExibirAvaliacao.php?matriculasiape=" + matriculasiape).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

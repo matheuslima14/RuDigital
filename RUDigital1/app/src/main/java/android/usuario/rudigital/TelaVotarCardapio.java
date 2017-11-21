@@ -3,12 +3,34 @@ package android.usuario.rudigital;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class TelaVotarCardapio extends Activity {
 
-    private Button btn_voltar, btn_votarDia, btn_VotarSemana;
+    private ListView listaCardapios;
+    private OkHttpClient client;
+    private List<Cardapio> cardapios;
+    private List<Prato> pratos;
+    ArrayAdapter<Cardapio> itemsAdaptercardapios;
+    private Button btn_voltar;
     Usuario usuario;
 
     @Override
@@ -27,9 +49,14 @@ public class TelaVotarCardapio extends Activity {
 
         btn_voltar = (Button) findViewById(R.id.btn_voltar);
 
-        this.btn_voltar.setOnClickListener(new View.OnClickListener(){
+        listaCardapios = (ListView) findViewById(R.id.listaCardapios);
+
+        client = new OkHttpClient();
+        getWebServiceCardapios();
+
+        this.btn_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent TelaMenu = new Intent(TelaVotarCardapio.this, TelaMenu.class);
 
                 TelaMenu.putExtra("matriculasiape", usuario.getMatriculaSiape());
@@ -43,4 +70,59 @@ public class TelaVotarCardapio extends Activity {
             }
         });
     }
+
+    private void getWebServiceCardapios() {
+        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/ExibirCardapios.php").build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //falho
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                            Gson json = new Gson();
+
+                            Type collectionType = new TypeToken<List<Cardapio>>() {
+                            }.getType();
+
+                            cardapios = json.fromJson(response.body().string(), collectionType);
+
+                            itemsAdaptercardapios = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, cardapios);
+                            if (cardapios == null) {
+                                handler.sendEmptyMessage(0);
+                            } else {
+                                handler.sendEmptyMessage(1);
+                            }
+
+                        } catch (IOException ioe) {
+                            //Erro
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what == 0) {
+                Toast.makeText(getBaseContext(), "Nenhuma Cardápio Cadastrado!", Toast.LENGTH_SHORT).show();
+            } else if (msg.what == 1) {
+                listaCardapios.setAdapter(itemsAdaptercardapios);
+            }
+        }
+    };
 }

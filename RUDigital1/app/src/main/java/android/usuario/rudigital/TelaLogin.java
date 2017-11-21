@@ -75,7 +75,7 @@ public class TelaLogin extends AppCompatActivity {
         String matriculasiape = editMatriculaSiape.getText().toString();
         String senha = editSenha1.getText().toString();
 
-        final Request request = new Request.Builder().url("https://pedrofjduarte.000webhostapp.com/appRUDigital/LoginUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
+        final Request request = new Request.Builder().url("http://192.168.0.100:802/appRUDigital/LoginUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
