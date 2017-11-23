@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -23,13 +24,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class TelaVotarCardapio extends Activity {
+public class TelaVotarCardapio extends Activity{
 
     private ListView listaCardapios;
     private OkHttpClient client;
-    private List<Cardapio> cardapios;
-    private List<Prato> pratos;
-    ArrayAdapter<Cardapio> itemsAdaptercardapios;
+    private ArrayList<Cardapio> cardapios;
+    private ArrayList<Prato> pratos;
+    ArrayAdapter itemsAdaptercardapios;
     private Button btn_voltar;
     Usuario usuario;
 
@@ -47,12 +48,21 @@ public class TelaVotarCardapio extends Activity {
         usuario.setSenha(intent.getStringExtra("senha"));
         usuario.setRg(intent.getStringExtra("rg"));
 
+
         btn_voltar = (Button) findViewById(R.id.btn_voltar);
 
         listaCardapios = (ListView) findViewById(R.id.listaCardapios);
 
         client = new OkHttpClient();
         getWebServiceCardapios();
+
+        /*listaCardapios.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public  void onItemClick(AdapterView<?> paret, View view, int position, long id){
+                Toast.makeText(getBaseContext(), cardapios.get(position).toString(), Toast.LENGTH_SHORT).show();
+            }
+
+        });*/
 
         this.btn_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +109,8 @@ public class TelaVotarCardapio extends Activity {
 
                             cardapios = json.fromJson(response.body().string(), collectionType);
 
-                            itemsAdaptercardapios = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, cardapios);
+                            itemsAdaptercardapios = new ListaAdapterItem(getBaseContext(),cardapios);
+
                             if (cardapios == null) {
                                 handler.sendEmptyMessage(0);
                             } else {

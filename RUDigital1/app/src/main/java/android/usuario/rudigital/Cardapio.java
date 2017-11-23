@@ -57,7 +57,7 @@ public class Cardapio {
 
     @Override
     public String toString() {
-        String resultado = nome + "\nPeríodo: " + dataInicio + " - " + dataFinal + "\n\n";
+        String resultado = "";
 
         for (Prato p : pratos) {
            resultado = resultado +  p.getDia() + " - " + p.getDataPrato() + "\n" + p.getDescricao() + "\n\n";
