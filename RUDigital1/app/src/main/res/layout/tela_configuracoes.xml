@@ -44,7 +44,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="RG"
-        android:inputType="number" />
+        android:inputType="number"
+        android:enabled="false"/>
 
     <EditText
         android:id="@+id/editMatriculaSiape"

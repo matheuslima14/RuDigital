@@ -1,11 +1,23 @@
 package android.usuario.rudigital;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class TelaConfiguracoes extends AppCompatActivity {
 
@@ -19,7 +31,9 @@ public class TelaConfiguracoes extends AppCompatActivity {
     private EditText editSenhaNova;
     private EditText editConfirmaSenhaNova;
     private EditText edtSenha;
+    private OkHttpClient client;
     Usuario usuario;
+    Usuario usuarioretornado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +60,33 @@ public class TelaConfiguracoes extends AppCompatActivity {
         editConfirmaSenhaNova = (EditText) findViewById(R.id.editConfirmaSenhaNova);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
 
+        editNome.setText(usuario.getNome());
+        editEmail.setText(usuario.getEmail());
+        editRG.setText(usuario.getRg());
+        editMatriculaSiape.setText(usuario.getMatriculaSiape());
+
         btnAtualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (editNome.getText().toString().isEmpty() || editEmail.getText().toString().isEmpty() || editMatriculaSiape.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Preencha os campos corretamente!", Toast.LENGTH_SHORT).show();
+                }
+                if ((editNome.getText().toString().isEmpty() || editEmail.getText().toString().isEmpty() || editMatriculaSiape.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty()) && (!editSenhaNova.getText().toString().equals(editConfirmaSenhaNova.getText().toString()))) {
+                    Toast.makeText(getApplicationContext(), "Preencha os campos corretamente!", Toast.LENGTH_SHORT).show();
+                } else if (editSenhaNova.length() > 0 || editConfirmaSenhaNova.length() > 0) {
+                    if (!(editSenhaNova.getText().toString().equals(editConfirmaSenhaNova.getText().toString()))) {
+                        Toast.makeText(getApplicationContext(), "Senhas não conferem!", Toast.LENGTH_SHORT).show();
+                    }
+                    if (editSenhaNova.length() < 8 || editConfirmaSenhaNova.length() < 8) {
+                        Toast.makeText(getApplicationContext(), "Senha tem que ter no minímo 8 digitos!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        client = new OkHttpClient();
+                        getWebService();
+                    }
+                } else {
+                    client = new OkHttpClient();
+                    getWebService();
+                }
             }
         });
 
@@ -82,4 +119,64 @@ public class TelaConfiguracoes extends AppCompatActivity {
             }
         });
     }
+
+    private void getWebService() {
+
+        final Request request = new Request.Builder().url("http://192.168.0.101:802/appRUDigital/AlterarUsuario.php?nome=" + editNome.getText().toString() + "&email=" + editEmail.getText().toString() + "&matriculasiape=" + editMatriculaSiape.getText().toString() + "&senha=" + edtSenha.getText().toString() + "&novasenha=" + editSenhaNova.getText().toString() + "&matriculasiapeatual=" + usuario.getMatriculaSiape().toString()).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                            Gson json = new Gson();
+
+                            usuarioretornado = json.fromJson(response.body().string(), Usuario.class);
+
+                            if (usuarioretornado != null) {
+                                handler.sendEmptyMessage(0);
+                            } else {
+                                handler.sendEmptyMessage(1);
+                            }
+
+                        } catch (IOException ioe) {
+                            handler.sendEmptyMessage(2);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what == 0) {
+                Intent telaMenu = new Intent(TelaConfiguracoes.this, TelaMenu.class);
+                telaMenu.putExtra("matriculasiape", usuarioretornado.getMatriculaSiape());
+                telaMenu.putExtra("nome", usuarioretornado.getNome());
+                telaMenu.putExtra("email", usuarioretornado.getEmail());
+                telaMenu.putExtra("senha", usuarioretornado.getSenha());
+                telaMenu.putExtra("rg", usuario.getRg());
+                startActivity(telaMenu);
+                Toast.makeText(getBaseContext(), "Dados Alterados!", Toast.LENGTH_SHORT).show();
+            } else if (msg.what == 1) {
+                Toast.makeText(getBaseContext(), "Não foi possível alterar os dados!", Toast.LENGTH_SHORT).show();
+            } else if (msg.what == 2) {
+                Toast.makeText(getBaseContext(), "Erro de comunicação!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 }
