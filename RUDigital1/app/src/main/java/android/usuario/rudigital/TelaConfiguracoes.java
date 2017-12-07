@@ -70,14 +70,10 @@ public class TelaConfiguracoes extends AppCompatActivity {
             public void onClick(View view) {
                 if (editNome.getText().toString().isEmpty() || editEmail.getText().toString().isEmpty() || editMatriculaSiape.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Preencha os campos corretamente!", Toast.LENGTH_SHORT).show();
-                }
-                if ((editNome.getText().toString().isEmpty() || editEmail.getText().toString().isEmpty() || editMatriculaSiape.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty()) && (!editSenhaNova.getText().toString().equals(editConfirmaSenhaNova.getText().toString()))) {
-                    Toast.makeText(getApplicationContext(), "Preencha os campos corretamente!", Toast.LENGTH_SHORT).show();
                 } else if (editSenhaNova.length() > 0 || editConfirmaSenhaNova.length() > 0) {
                     if (!(editSenhaNova.getText().toString().equals(editConfirmaSenhaNova.getText().toString()))) {
                         Toast.makeText(getApplicationContext(), "Senhas não conferem!", Toast.LENGTH_SHORT).show();
-                    }
-                    if (editSenhaNova.length() < 8 || editConfirmaSenhaNova.length() < 8) {
+                    } else if (editSenhaNova.length() < 8) {
                         Toast.makeText(getApplicationContext(), "Senha tem que ter no minímo 8 digitos!", Toast.LENGTH_SHORT).show();
                     } else {
                         client = new OkHttpClient();
@@ -122,7 +118,7 @@ public class TelaConfiguracoes extends AppCompatActivity {
 
     private void getWebService() {
 
-        final Request request = new Request.Builder().url("http://192.168.0.101:802/appRUDigital/AlterarUsuario.php?nome=" + editNome.getText().toString() + "&email=" + editEmail.getText().toString() + "&matriculasiape=" + editMatriculaSiape.getText().toString() + "&senha=" + edtSenha.getText().toString() + "&novasenha=" + editSenhaNova.getText().toString() + "&matriculasiapeatual=" + usuario.getMatriculaSiape().toString()).build();
+        final Request request = new Request.Builder().url("http://pedrofjduarte.000webhostapp.com/appRUDigital/AlterarUsuario.php?nome=" + editNome.getText().toString() + "&email=" + editEmail.getText().toString() + "&matriculasiape=" + editMatriculaSiape.getText().toString() + "&senha=" + edtSenha.getText().toString() + "&novasenha=" + editSenhaNova.getText().toString() + "&matriculasiapeatual=" + usuario.getMatriculaSiape().toString()).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
