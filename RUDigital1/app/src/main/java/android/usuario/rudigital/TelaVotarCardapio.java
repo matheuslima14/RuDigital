@@ -84,7 +84,7 @@ public class TelaVotarCardapio extends AppCompatActivity {
     }
 
     private void getWebServiceCardapios() {
-        final Request request = new Request.Builder().url("http://pedrofjduarte.000webhostapp.com/appRUDigital/ExibirCardapios.php").build();
+        final Request request = new Request.Builder().url("http://192.168.0.101:802/appRUDigital/ExibirCardapios.php").build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

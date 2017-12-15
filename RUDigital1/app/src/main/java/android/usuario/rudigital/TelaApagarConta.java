@@ -78,7 +78,7 @@ public class TelaApagarConta extends AppCompatActivity {
         String matriculasiape = usuario.getMatriculaSiape().toString();
         String senha = edtSenha.getText().toString();
 
-        final Request request = new Request.Builder().url("http://pedrofjduarte.000webhostapp.com/appRUDigital/ExcluirUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
+        final Request request = new Request.Builder().url("http://192.168.0.101:802/appRUDigital/ExcluirUsuario.php?matriculasiape=" + matriculasiape + "&senha=" + senha).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

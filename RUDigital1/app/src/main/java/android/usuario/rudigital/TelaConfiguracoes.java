@@ -118,7 +118,7 @@ public class TelaConfiguracoes extends AppCompatActivity {
 
     private void getWebService() {
 
-        final Request request = new Request.Builder().url("http://pedrofjduarte.000webhostapp.com/appRUDigital/AlterarUsuario.php?nome=" + editNome.getText().toString() + "&email=" + editEmail.getText().toString() + "&matriculasiape=" + editMatriculaSiape.getText().toString() + "&senha=" + edtSenha.getText().toString() + "&novasenha=" + editSenhaNova.getText().toString() + "&matriculasiapeatual=" + usuario.getMatriculaSiape().toString()).build();
+        final Request request = new Request.Builder().url("http://192.168.0.101:802/appRUDigital/AlterarUsuario.php?nome=" + editNome.getText().toString() + "&email=" + editEmail.getText().toString() + "&matriculasiape=" + editMatriculaSiape.getText().toString() + "&senha=" + edtSenha.getText().toString() + "&novasenha=" + editSenhaNova.getText().toString() + "&matriculasiapeatual=" + usuario.getMatriculaSiape().toString()).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

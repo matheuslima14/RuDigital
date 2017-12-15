@@ -75,7 +75,7 @@ public class TelaCadastro extends AppCompatActivity {
         String senha = editSenha2.getText().toString();
         String confirmaSenha = editConfirmaSenha.getText().toString();
 
-        final Request request = new Request.Builder().url("http://pedrofjduarte.000webhostapp.com/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg + "&confirmaSenha" + confirmaSenha).build();
+        final Request request = new Request.Builder().url("http://192.168.0.101:802/appRUDigital/CadastroUsuario.php?nome=" + nome + "&email=" + email + "&senha=" + senha + "&matriculasiape=" + matriculasiape + "&rg=" + rg + "&confirmaSenha" + confirmaSenha).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -123,6 +123,8 @@ public class TelaCadastro extends AppCompatActivity {
                 editMatriculaSiape.setText("");
                 editSenha2.setText("");
                 editConfirmaSenha.setText("");
+                Intent abreLogin = new Intent(TelaCadastro.this, TelaLogin.class);
+                startActivity(abreLogin);
                 Toast.makeText(getBaseContext(), "Cadastrado com Sucesso!", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 1) {
                 Toast.makeText(getBaseContext(), "Pessoa não encontrada no sistema!", Toast.LENGTH_SHORT).show();
