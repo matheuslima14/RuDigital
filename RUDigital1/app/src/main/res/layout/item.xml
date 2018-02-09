@@ -4,17 +4,18 @@
     android:layout_height="match_parent">
 
     <RadioGroup
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:id="@+id/radioGroup"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:visibility="visible">
 
-    <RadioButton
-        android:id="@+id/voto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:choiceMode="singleChoice" />
+        <RadioButton
+            android:id="@+id/voto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice" />
 
     </RadioGroup>
 

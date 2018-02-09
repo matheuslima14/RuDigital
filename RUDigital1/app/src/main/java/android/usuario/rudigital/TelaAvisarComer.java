@@ -42,6 +42,17 @@ public class TelaAvisarComer extends AppCompatActivity {
     Agenda agenda;
     AgendaRefeicao agendaRefeicao;
 
+    String segunda1;
+    String segunda2;
+    String terca1;
+    String terca2;
+    String quarta1;
+    String quarta2;
+    String quinta1;
+    String quinta2;
+    String sexta1;
+    String sexta2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,12 @@ public class TelaAvisarComer extends AppCompatActivity {
 
         usuario = new Usuario();
         Intent intent = getIntent();
+
+        usuario.setMatriculaSiape(intent.getStringExtra("matriculasiape"));
+        usuario.setNome(intent.getStringExtra("nome"));
+        usuario.setEmail(intent.getStringExtra("email"));
+        usuario.setSenha(intent.getStringExtra("senha"));
+        usuario.setRg(intent.getStringExtra("rg"));
 
         txtDataAgenda = (TextView) findViewById(R.id.txtDataAgenda);
 
@@ -64,68 +81,70 @@ public class TelaAvisarComer extends AppCompatActivity {
         jantaQuinta = (CheckBox) findViewById(R.id.jantaQuinta);
         jantaSexta = (CheckBox) findViewById(R.id.jantaSexta);
 
-        usuario.setMatriculaSiape(intent.getStringExtra("matriculasiape"));
-        usuario.setNome(intent.getStringExtra("nome"));
-        usuario.setEmail(intent.getStringExtra("email"));
-        usuario.setSenha(intent.getStringExtra("senha"));
-        usuario.setRg(intent.getStringExtra("rg"));
-
         btn_voltar = (Button) findViewById(R.id.btn_voltar);
         btnSalvarAgenda = (Button) findViewById(R.id.btnSalvarAgenda);
 
         this.btnSalvarAgenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (almocoSegunda.isChecked()) {
-                    almocoSegunda.setText("true");
+                    segunda1 = "true";
                 } else {
-                    almocoSegunda.setText("false");
+                    segunda1 = "false";
                 }
+
                 if (almocoTerca.isChecked()) {
-                    almocoTerca.setText("true");
+                    terca1 = "true";
                 } else {
-                    almocoTerca.setText("false");
+                    terca1 = "false";
                 }
+
                 if (almocoQuarta.isChecked()) {
-                    almocoQuarta.setText("true");
+                    quarta1 = "true";
                 } else {
-                    almocoQuarta.setText("false");
+                    quarta1 = "false";
                 }
+
                 if (almocoQuinta.isChecked()) {
-                    almocoQuinta.setText("true");
+                    quinta1 = "true";
                 } else {
-                    almocoQuinta.setText("false");
+                    quinta1 = "false";
                 }
+
                 if (almocoSexta.isChecked()) {
-                    almocoSexta.setText("true");
+                    sexta1 = "true";
                 } else {
-                    almocoSexta.setText("false");
+                    sexta2 = "false";
                 }
 
                 if (jantaSegunda.isChecked()) {
-                    jantaSegunda.setText("true");
+                    segunda2 = "true";
                 } else {
-                    jantaSegunda.setText("false");
+                    segunda2 = "false";
                 }
+
                 if (jantaTerca.isChecked()) {
-                    jantaTerca.setText("true");
+                    terca2 = "true";
                 } else {
-                    jantaTerca.setText("false");
+                    terca2 = "false";
                 }
+
                 if (jantaQuarta.isChecked()) {
-                    jantaQuarta.setText("true");
+                    quarta2 = "true";
                 } else {
-                    jantaQuarta.setText("false");
+                    quarta2 = "false";
                 }
+
                 if (jantaQuinta.isChecked()) {
-                    jantaQuinta.setText("true");
+                    quinta2 = "true";
                 } else {
-                    jantaQuinta.setText("false");
+                    quinta2 = "false";
                 }
                 if (jantaSexta.isChecked()) {
-                    jantaSexta.setText("true");
+                    sexta2 = "true";
                 } else {
-                    jantaSexta.setText("false");
+                    sexta2 = "false";
                 }
 
                 client = new OkHttpClient();
@@ -152,7 +171,7 @@ public class TelaAvisarComer extends AppCompatActivity {
 
     private void getWebService() {
 
-        final Request request = new Request.Builder().url("http://192.168.0.101:802/appRUDigital/AgendaRefeicao.php?matriculasiape=" + usuario.getMatriculaSiape().toString() + "&agenda=" + agenda.getId() + "&almocoSegunda=" + almocoSegunda.getText().toString() + "&almocoTerca=" + almocoTerca.getText().toString() + "&almocoQuarta=" + almocoQuarta.getText().toString() + "&almocoQuinta=" + almocoQuinta.getText().toString() + "&almocoSexta=" + almocoSexta.getText().toString() + "&jantaSegunda=" + jantaSegunda.getText().toString() + "&jantaTerca=" + jantaTerca.getText().toString() + "&jantaQuarta=" + jantaQuarta.getText().toString() + "&jantaQuinta=" + jantaQuinta.getText().toString() + "&jantaSexta=" + jantaSexta.getText().toString()).build();
+        final Request request = new Request.Builder().url("http://172.50.0.178:802/appRUDigital/AgendarRefeicao.php?matriculasiape=" + usuario.getMatriculaSiape().toString() /*+ "&agenda=" + agenda.getId()*/ + "&almocoSegunda=" + segunda1 + "&almocoTerca=" + terca1 + "&almocoQuarta=" + quarta1 + "&almocoQuinta=" + quinta1 + "&almocoSexta=" + sexta1 + "&jantaSegunda=" + segunda2 + "&jantaTerca=" + terca2 + "&jantaQuarta=" + quarta2 + "&jantaQuinta=" + quinta2 + "&jantaSexta=" + sexta2).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

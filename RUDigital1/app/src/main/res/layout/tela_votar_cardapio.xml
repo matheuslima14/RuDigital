@@ -41,13 +41,19 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listaCardapios"
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btn_voltar"
-        android:layout_alignParentLeft="true"
-        android:choiceMode="singleChoice"
-        android:layout_alignParentStart="true" />
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/listaCardapios"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_voltar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:choiceMode="singleChoice" />
+
+    </RadioGroup>
 
 </RelativeLayout>

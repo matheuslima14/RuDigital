@@ -64,7 +64,7 @@ public class TelaRecuperarSenha extends AppCompatActivity {
 
     private void getWebService() {
 
-        final Request request = new Request.Builder().url("http://192.168.0.101:802/appRUDigital/RedefinirSenha.php?email=" + edtEmail.getText().toString()).build();
+        final Request request = new Request.Builder().url("http://172.50.0.178:802/appRUDigital/RedefinirSenha.php?email=" + edtEmail.getText().toString()).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

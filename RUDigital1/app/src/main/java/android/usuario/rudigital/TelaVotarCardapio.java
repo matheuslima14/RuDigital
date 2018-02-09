@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
@@ -34,6 +35,7 @@ public class TelaVotarCardapio extends AppCompatActivity {
     private ArrayList<Prato> pratos;
     ArrayAdapter itemsAdaptercardapios;
     private Button btn_voltar;
+    private Button btn_votar;
     Usuario usuario;
 
     @Override
@@ -52,19 +54,27 @@ public class TelaVotarCardapio extends AppCompatActivity {
 
 
         btn_voltar = (Button) findViewById(R.id.btn_voltar);
+        btn_votar = (Button) findViewById(R.id.btn_votar);
 
         listaCardapios = (ListView) findViewById(R.id.listaCardapios);
 
         client = new OkHttpClient.Builder().connectTimeout(1, TimeUnit.MINUTES).build();
         getWebServiceCardapios();
 
-        /*listaCardapios.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        /*listaCardapios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public  void onItemClick(AdapterView<?> paret, View view, int position, long id){
+            public void onItemClick(AdapterView<?> paret, View view, int position, long id) {
                 Toast.makeText(getBaseContext(), cardapios.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
 
         });*/
+
+        this.btn_votar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(),"OPA!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         this.btn_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +94,7 @@ public class TelaVotarCardapio extends AppCompatActivity {
     }
 
     private void getWebServiceCardapios() {
-        final Request request = new Request.Builder().url("http://192.168.0.101:802/appRUDigital/ExibirCardapios.php").build();
+        final Request request = new Request.Builder().url("http://172.50.0.178:802/appRUDigital/ExibirCardapios.php").build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -111,7 +121,7 @@ public class TelaVotarCardapio extends AppCompatActivity {
 
                             cardapios = json.fromJson(response.body().string(), collectionType);
 
-                            itemsAdaptercardapios = new ListaAdapterItem(getBaseContext(),cardapios);
+                            itemsAdaptercardapios = new ListaAdapterItem(getBaseContext(), cardapios);
 
                             if (cardapios == null) {
                                 handler.sendEmptyMessage(0);
